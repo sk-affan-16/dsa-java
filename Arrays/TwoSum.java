@@ -1,25 +1,33 @@
+import java.util.HashMap;
+import java.util.Map;
+
 /*
  * Problem: Two Sum
  * Platform: LeetCode
  * Difficulty: Easy
  *
  * Approach:
- * Check every possible pair using nested loops.
- * Return the indices when their sum equals the target.
+ * Store each number with its index in a HashMap.
+ * For every number, check whether its complement
+ * (target - current number) has already been seen.
  *
- * Time Complexity: O(n²)
- * Space Complexity: O(1)
+ * Time Complexity: O(n)
+ * Space Complexity: O(n)
  */
 
 public class TwoSum {
 
     public int[] twoSum(int[] nums, int target) {
+        Map<Integer, Integer> seen = new HashMap<>();
+
         for (int i = 0; i < nums.length; i++) {
-            for (int j = i + 1; j < nums.length; j++) {
-                if (nums[i] + nums[j] == target) {
-                    return new int[]{i, j};
-                }
+            int complement = target - nums[i];
+
+            if (seen.containsKey(complement)) {
+                return new int[]{seen.get(complement), i};
             }
+
+            seen.put(nums[i], i);
         }
 
         return new int[]{};
