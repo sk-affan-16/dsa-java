@@ -1,26 +1,33 @@
 /*
- * Problem: Search Insert Position
+ * Problem: Matrix Diagonal Sum
  * Platform: LeetCode
  * Difficulty: Easy
  *
  * Approach:
- * Traverse the sorted array and return the first position
- * where the target can be inserted without breaking the order.
- * If the target is greater than every element, return nums.length.
+ * Traverse both the primary and secondary diagonals in one pass.
+ * The condition prevents the center element from being counted twice
+ * when the matrix has an odd number of rows.
  *
  * Time Complexity: O(n)
  * Space Complexity: O(1)
  */
 
-public class SearchInsertPosition {
+public class MatrixDiagonalSum {
 
-    public int searchInsert(int[] nums, int target) {
-        for (int i = 0; i < nums.length; i++) {
-            if (target <= nums[i]) {
-                return i;
+    public int diagonalSum(int[][] mat) {
+        int sum = 0;
+
+        for (int i = 0; i < mat.length; i++) {
+
+            // Primary Diagonal
+            sum += mat[i][i];
+
+            // Secondary Diagonal
+            if (i != mat.length - 1 - i) {
+                sum += mat[i][mat.length - 1 - i];
             }
         }
 
-        return nums.length;
+        return sum;
     }
 }
